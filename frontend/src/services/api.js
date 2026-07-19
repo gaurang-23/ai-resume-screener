@@ -1,5 +1,4 @@
-const API_BASE_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const API_BASE_URL = `${import.meta.env.VITE_API_URL || "http://localhost:5000/api"}`;
 
 export class ApiError extends Error {
   constructor(message, status) {
@@ -9,8 +8,6 @@ export class ApiError extends Error {
   }
 }
 
-// Thin fetch wrapper: attaches the JWT, (de)serializes JSON, and throws on non-2xx
-// responses so call sites can just `try { await api.post(...) } catch (err) { err.message }`.
 const request = async (path, { method = "GET", body } = {}) => {
   const token = localStorage.getItem("token");
   const isFormData = body instanceof FormData;
