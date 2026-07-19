@@ -1,4 +1,10 @@
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import api from "../services/api";
 
 const AuthContext = createContext(null);
@@ -7,7 +13,6 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Validate any token we already have in localStorage on first load.
   const loadUser = useCallback(async () => {
     try {
       const data = await api.get("/auth/user");
@@ -29,17 +34,27 @@ export const AuthProvider = ({ children }) => {
   }, [loadUser]);
 
   const login = async (email, password) => {
-    const data = await api.post("/auth/login", { email, password });
-    localStorage.setItem("token", data.token);
-    setUser(data.user);
-    return data;
+    try {
+      const data = await api.post("/auth/login", { email, password });
+
+      if (data?.token) {
+        localStorage.setItem("token", data.token);
+      }
+    } catch (err) {
+      throw new Error(err.message || "Login failed.");
+    }
   };
 
   const register = async (name, email, password) => {
-    const data = await api.post("/auth/register", { name, email, password });
-    localStorage.setItem("token", data.token);
-    setUser(data.user);
-    return data;
+    try {
+      const data = await api.post("/auth/register", { name, email, password });
+
+      if (data?.token) {
+        localStorage.setItem("token", data.token);
+      }
+    } catch (err) {
+      throw new Error(err.message || "Registration failed.");
+    }
   };
 
   const logout = () => {
