@@ -19,24 +19,17 @@ const request = async (path, { method = "GET", body } = {}) => {
       : { "Content-Type": "application/json" }),
   };
 
-  const res = await fetch(`${API_BASE_URL}${path}`, {
+  // Force the full URL to be absolute
+  const url = API_BASE_URL.startsWith("http")
+    ? `${API_BASE_URL}${path}`
+    : `https://ai-resume-screener-qwzq.onrender.com/api${path}`;
+
+  const res = await fetch(url, {
     method,
     headers,
     body: isFormData || body === undefined ? body : JSON.stringify(body),
   });
-
-  const contentType = res.headers.get("content-type") || "";
-  const data = contentType.includes("application/json")
-    ? await res.json()
-    : null;
-
-  if (!res.ok) {
-    throw new ApiError(data?.message || "Something went wrong.", res.status);
-  }
-
-  return data;
 };
-
 const api = {
   get: (path) => request(path, { method: "GET" }),
   post: (path, body) => request(path, { method: "POST", body }),
