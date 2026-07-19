@@ -1,4 +1,3 @@
-process.env.GOOGLE_APPLICATION_CREDENTIALS = "";
 const { GoogleGenAI } = require("@google/genai");
 if (!process.env.GEMINI_API_KEY) {
   console.error(
@@ -8,11 +7,11 @@ if (!process.env.GEMINI_API_KEY) {
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 const responseSchema = {
-  type: Type.OBJECT,
+  type: OBJECT,
   properties: {
-    score: { type: Type.NUMBER },
-    strengths: { type: Type.ARRAY, items: { type: Type.STRING } },
-    weaknesses: { type: Type.ARRAY, items: { type: Type.STRING } },
+    score: { type: NUMBER },
+    strengths: { type: ARRAY, items: { type: STRING } },
+    weaknesses: { type: ARRAY, items: { type: STRING } },
   },
   required: ["score", "strengths", "weaknesses"],
 };
