@@ -27,7 +27,7 @@ const Home = () => {
     setHistoryLoading(true);
     setHistoryError("");
     try {
-      const data = await api.get("/resume/history");
+      const data = await api.get("/resumes/history");
       setHistory(data.resumes);
     } catch (err) {
       setHistoryError(err.message || "Couldn't load history.");
@@ -75,7 +75,7 @@ const Home = () => {
     setResult(null);
     try {
       // Don't set Content-Type manually - the browser needs to add the multipart boundary itself.
-      const data = await api.post("/resume/upload", formData);
+      const data = await api.post("/resumes/upload", formData);
       setResult(data.resume);
       setFile(null);
       setJobDescription("");
