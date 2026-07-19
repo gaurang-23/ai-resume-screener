@@ -10,7 +10,8 @@ const Login = () => {
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
-  const handleChange = (e) => setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  const handleChange = (e) =>
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +28,10 @@ const Login = () => {
   };
 
   return (
-    <AuthLayout title="Welcome back" subtitle="Sign in to review your candidates.">
+    <AuthLayout
+      title="Welcome back"
+      subtitle="Sign in to review your candidates."
+    >
       {error && (
         <div className="mt-6 rounded-md border border-signal-weak/30 bg-signal-weak/10 px-4 py-3 text-sm text-signal-weak">
           {error}
@@ -51,7 +55,10 @@ const Login = () => {
           />
         </div>
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-ink">
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-ink"
+          >
             Password
           </label>
           <input
@@ -76,7 +83,10 @@ const Login = () => {
 
       <p className="mt-6 text-center text-sm text-ink-light">
         New here?{" "}
-        <Link to="/signup" className="font-medium text-folder-dark hover:underline">
+        <Link
+          to="/signup"
+          className="font-medium text-folder-dark hover:underline"
+        >
           Create an account
         </Link>
       </p>
