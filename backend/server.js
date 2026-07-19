@@ -32,6 +32,10 @@ app.get("/api/health", (req, res) => {
   });
 });
 
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "Resume Screener API is running securely!" });
+});
+
 // Start server
 const startServer = async () => {
   try {
