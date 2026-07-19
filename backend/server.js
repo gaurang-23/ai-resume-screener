@@ -23,6 +23,10 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/resumes", resumeRoutes); // Consolidated duplicate routes
+app.use((req, res, next) => {
+  console.log("Incoming request origin:", req.headers.origin);
+  next();
+});
 
 // Health check routes
 app.get("/api/health", (req, res) => {
