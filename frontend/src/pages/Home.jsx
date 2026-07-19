@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import api from "../services/api";
+import { api } from "../services/api";
 import LogoMark from "../components/LogoMark";
 import ScoreBadge from "../components/ScoreBadge";
 
@@ -110,18 +110,29 @@ const Home = () => {
 
       <main className="mx-auto max-w-5xl px-6 py-10">
         <div className="mb-8 flex w-fit gap-1 rounded-lg bg-paper-dim p-1">
-          <TabButton active={tab === TABS.REVIEW} onClick={() => setTab(TABS.REVIEW)}>
+          <TabButton
+            active={tab === TABS.REVIEW}
+            onClick={() => setTab(TABS.REVIEW)}
+          >
             New review
           </TabButton>
-          <TabButton active={tab === TABS.HISTORY} onClick={() => setTab(TABS.HISTORY)}>
+          <TabButton
+            active={tab === TABS.HISTORY}
+            onClick={() => setTab(TABS.HISTORY)}
+          >
             History
           </TabButton>
         </div>
 
         {tab === TABS.REVIEW && (
           <div className="grid gap-8 lg:grid-cols-2">
-            <form onSubmit={handleSubmit} className="rounded-xl border border-ink/10 bg-white p-6">
-              <h2 className="font-display text-xl font-semibold">Screen a resume</h2>
+            <form
+              onSubmit={handleSubmit}
+              className="rounded-xl border border-ink/10 bg-white p-6"
+            >
+              <h2 className="font-display text-xl font-semibold">
+                Screen a resume
+              </h2>
               <p className="mt-1 text-sm text-ink-light">
                 Attach a PDF resume and the job description to score the match.
               </p>
@@ -133,7 +144,9 @@ const Home = () => {
               )}
 
               <div className="mt-5">
-                <label className="block text-sm font-medium">Job description</label>
+                <label className="block text-sm font-medium">
+                  Job description
+                </label>
                 <textarea
                   value={jobDescription}
                   onChange={(e) => setJobDescription(e.target.value)}
@@ -144,7 +157,9 @@ const Home = () => {
               </div>
 
               <div className="mt-5">
-                <label className="block text-sm font-medium">Resume (PDF)</label>
+                <label className="block text-sm font-medium">
+                  Resume (PDF)
+                </label>
                 <label
                   htmlFor="resume-file"
                   className="mt-1.5 flex cursor-pointer flex-col items-center justify-center rounded-md border border-dashed border-ink/25 bg-paper px-4 py-6 text-center transition hover:border-ink/40"
@@ -205,7 +220,9 @@ const Home = () => {
 
         {tab === TABS.HISTORY && (
           <div>
-            {historyLoading && <p className="text-sm text-ink-light">Loading history…</p>}
+            {historyLoading && (
+              <p className="text-sm text-ink-light">Loading history…</p>
+            )}
             {historyError && (
               <div className="rounded-md border border-signal-weak/30 bg-signal-weak/10 px-4 py-3 text-sm text-signal-weak">
                 {historyError}
@@ -220,7 +237,10 @@ const Home = () => {
               {history.map((item) => {
                 const isOpen = expandedId === item.id;
                 return (
-                  <div key={item.id} className="rounded-xl border border-ink/10 bg-white p-5">
+                  <div
+                    key={item.id}
+                    className="rounded-xl border border-ink/10 bg-white p-5"
+                  >
                     <button
                       onClick={() => setExpandedId(isOpen ? null : item.id)}
                       className="flex w-full items-center justify-between gap-4 text-left"
@@ -274,7 +294,9 @@ const TabButton = ({ active, onClick, children }) => (
 const AnalysisLists = ({ analysis }) => (
   <div className="mt-5 grid gap-5 sm:grid-cols-2">
     <div>
-      <p className="text-xs font-medium uppercase tracking-wide text-signal-strong">Strengths</p>
+      <p className="text-xs font-medium uppercase tracking-wide text-signal-strong">
+        Strengths
+      </p>
       <ul className="mt-2 space-y-1.5 text-sm">
         {analysis.strengths.map((item, i) => (
           <li key={i} className="flex gap-2">
@@ -285,7 +307,9 @@ const AnalysisLists = ({ analysis }) => (
       </ul>
     </div>
     <div>
-      <p className="text-xs font-medium uppercase tracking-wide text-signal-weak">Gaps</p>
+      <p className="text-xs font-medium uppercase tracking-wide text-signal-weak">
+        Gaps
+      </p>
       <ul className="mt-2 space-y-1.5 text-sm">
         {analysis.weaknesses.map((item, i) => (
           <li key={i} className="flex gap-2">

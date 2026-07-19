@@ -28,4 +28,7 @@ const request = async (path, { method = "GET", body } = {}) => {
 
   return data;
 };
-export default api;
+export const api = {
+  get: (path) => request(path, { method: "GET" }),
+  post: (path, body) => request(path, { method: "POST", body }),
+};
