@@ -21,7 +21,8 @@ const request = async (path, { method = "GET", body } = {}) => {
       : { "Content-Type": "application/json" }),
   };
 
-  const url = `${API_BASE_URL}${path}`;
+  const formattedPath = path.startsWith("/") ? path : `/${path}`;
+  const url = `${API_BASE_URL}${formattedPath}`;
 
   const res = await fetch(url, {
     method,
@@ -29,7 +30,13 @@ const request = async (path, { method = "GET", body } = {}) => {
     body: isFormData || body === undefined ? body : JSON.stringify(body),
   });
 
-  const data = await res.json();
+  const text = await res.text();
+  let data;
+  try {
+    data = text ? JSON.parse(text) : {};
+  } catch {
+    throw new ApiError("Invalid server response", res.status);
+  }
 
   if (!res.ok) {
     throw new ApiError(data.message || "Something went wrong", res.status);
