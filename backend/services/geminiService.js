@@ -1,3 +1,4 @@
+process.env.GOOGLE_APPLICATION_CREDENTIALS = "";
 const { GoogleGenAI, Type } = require("@google/genai");
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
@@ -11,7 +12,7 @@ const responseSchema = {
   },
   required: ["score", "strengths", "weaknesses"],
 };
-
+console.log("Checking API Key existence:", !!process.env.GEMINI_API_KEY);
 const analyzeResume = async (resumeText, jobDescription) => {
   const prompt = `You are a strict tech recruiter. Compare the candidate's Resume to the Job Description. Score the match from 0-100, list 3 strengths that match the JD, and list 3 weaknesses or missing skills.
 
