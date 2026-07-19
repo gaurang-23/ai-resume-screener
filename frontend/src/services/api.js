@@ -1,4 +1,6 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const baseUrl = import.meta.env.VITE_API_URL;
+
+fetch(`${baseUrl}/api/resumes`);
 
 export class ApiError extends Error {
   constructor(message, status) {
@@ -16,7 +18,9 @@ const request = async (path, { method = "GET", body } = {}) => {
 
   const headers = {
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
-    ...(isFormData || body === undefined ? {} : { "Content-Type": "application/json" }),
+    ...(isFormData || body === undefined
+      ? {}
+      : { "Content-Type": "application/json" }),
   };
 
   const res = await fetch(`${API_BASE_URL}${path}`, {
@@ -26,7 +30,9 @@ const request = async (path, { method = "GET", body } = {}) => {
   });
 
   const contentType = res.headers.get("content-type") || "";
-  const data = contentType.includes("application/json") ? await res.json() : null;
+  const data = contentType.includes("application/json")
+    ? await res.json()
+    : null;
 
   if (!res.ok) {
     throw new ApiError(data?.message || "Something went wrong.", res.status);
