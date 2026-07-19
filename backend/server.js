@@ -1,3 +1,6 @@
+process.env.GCE_METADATA_HOST = "none";
+process.env.GOOGLE_APPLICATION_CREDENTIALS = "";
+process.env.NODE_ENV = "production";
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();

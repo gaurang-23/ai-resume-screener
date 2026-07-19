@@ -1,6 +1,10 @@
 process.env.GOOGLE_APPLICATION_CREDENTIALS = "";
-const { GoogleGenAI, Type } = require("@google/genai");
-
+const { GoogleGenAI } = require("@google/genai");
+if (!process.env.GEMINI_API_KEY) {
+  console.error(
+    "CRITICAL: GEMINI_API_KEY is not defined in environment variables!",
+  );
+}
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 const responseSchema = {
