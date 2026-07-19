@@ -1,3 +1,15 @@
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL ||
+  "https://ai-resume-screener-qwzq.onrender.com/api";
+
+export class ApiError extends Error {
+  constructor(message, status) {
+    super(message);
+    this.name = "ApiError";
+    this.status = status;
+  }
+}
+
 const request = async (path, { method = "GET", body } = {}) => {
   const token = localStorage.getItem("token");
   const isFormData = body instanceof FormData;
@@ -9,9 +21,7 @@ const request = async (path, { method = "GET", body } = {}) => {
       : { "Content-Type": "application/json" }),
   };
 
-  const url = API_BASE_URL.startsWith("http")
-    ? `${API_BASE_URL}${path}`
-    : `https://ai-resume-screener-qwzq.onrender.com/api${path}`;
+  const url = `${API_BASE_URL}${path}`;
 
   const res = await fetch(url, {
     method,
@@ -19,7 +29,6 @@ const request = async (path, { method = "GET", body } = {}) => {
     body: isFormData || body === undefined ? body : JSON.stringify(body),
   });
 
-  // --- ADD THIS LOGIC ---
   const data = await res.json();
 
   if (!res.ok) {
@@ -28,6 +37,7 @@ const request = async (path, { method = "GET", body } = {}) => {
 
   return data;
 };
+
 export const api = {
   get: (path) => request(path, { method: "GET" }),
   post: (path, body) => request(path, { method: "POST", body }),
