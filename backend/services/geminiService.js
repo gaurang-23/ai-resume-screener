@@ -7,11 +7,11 @@ if (!process.env.GEMINI_API_KEY) {
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 const responseSchema = {
-  type: OBJECT,
+  type: "OBJECT",
   properties: {
-    score: { type: NUMBER },
-    strengths: { type: ARRAY, items: { type: STRING } },
-    weaknesses: { type: ARRAY, items: { type: STRING } },
+    score: { type: "NUMBER" },
+    strengths: { type: "ARRAY", items: { type: "STRING" } },
+    weaknesses: { type: "ARRAY", items: { type: "STRING" } },
   },
   required: ["score", "strengths", "weaknesses"],
 };
