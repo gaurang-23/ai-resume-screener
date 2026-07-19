@@ -28,3 +28,4 @@ const request = async (path, { method = "GET", body } = {}) => {
 
   return data;
 };
+export default api;
